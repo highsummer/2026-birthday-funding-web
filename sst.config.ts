@@ -43,6 +43,17 @@ export default $config({
       link: secrets,
     });
 
-    return { apiUrl: api.url };
+    const site = new sst.aws.StaticSite("Site", {
+      build: {
+        command: "npm run build",
+        output: "dist",
+      },
+      domain: "birthday.yoonha.dev",
+      environment: {
+        VITE_API_URL: api.url,
+      },
+    });
+
+    return { apiUrl: api.url, siteUrl: site.url };
   },
 });
