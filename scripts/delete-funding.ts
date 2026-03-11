@@ -5,14 +5,14 @@
  *   npx tsx scripts/delete-funding.ts <성명>
  *
  * 예시:
- *   npx tsx scripts/delete-funding.ts 홍길동
+ *   npx tsx scripts/delete-funding.ts 김롱간
  */
 
-import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
+import { applicationDefault, cert, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { readFileSync, existsSync } from "fs";
-import { fileURLToPath } from "url";
+import { existsSync, readFileSync } from "fs";
 import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,7 +35,7 @@ async function main() {
 
   if (!name) {
     console.error("사용법: npx tsx scripts/delete-funding.ts <성명>");
-    console.error("예시:   npx tsx scripts/delete-funding.ts 홍길동");
+    console.error("예시:   npx tsx scripts/delete-funding.ts 김롱간");
     process.exit(1);
   }
 

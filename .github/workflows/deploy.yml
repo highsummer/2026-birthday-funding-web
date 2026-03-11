@@ -18,11 +18,14 @@ jobs:
       - run: npm ci
 
       - name: Set SST secrets
-        run: npx sst secret set FirebaseServiceAccount "$FIREBASE_SERVICE_ACCOUNT" --stage production
+        run: |
+          npx sst secret set FirebaseServiceAccount "$FIREBASE_SERVICE_ACCOUNT" --stage production
+          npx sst secret set AdminPassword "$ADMIN_PASSWORD" --stage production
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
       - name: Deploy with SST
         run: npx sst deploy --stage production
