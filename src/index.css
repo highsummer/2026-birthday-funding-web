@@ -57,3 +57,23 @@ body {
 .animate-particle-1 { animation: particle-1 10s ease-in-out infinite; }
 .animate-particle-2 { animation: particle-2 12s ease-in-out infinite; }
 .animate-particle-3 { animation: particle-3 11s ease-in-out infinite; }
+
+@keyframes lava-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.animate-lava {
+  background: linear-gradient(90deg, #f87171, #fb923c, #f59e0b, #ef4444, #f97316, #f87171);
+  background-size: 300% 100%;
+  animation: lava-flow 4s linear infinite;
+}
+
+.animate-lava-text {
+  background: linear-gradient(90deg, #f87171, #fb923c, #f59e0b, #ef4444, #f97316, #f87171);
+  background-size: 300% 100%;
+  animation: lava-flow 4s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

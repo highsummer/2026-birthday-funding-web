@@ -172,7 +172,11 @@ export default function Funding() {
     }
   };
 
-  const progress = Math.min((totalAmount / GOAL_AMOUNT) * 100, 100);
+  const isOverFunded = totalAmount > GOAL_AMOUNT;
+  const overallPercent = (totalAmount / GOAL_AMOUNT) * 100;
+  const progress = Math.min(overallPercent, 100);
+  // 초과 시: 바 전체를 totalAmount 기준으로, 100% 지점까지는 teal, 나머지는 red-orange
+  const goalRatio = isOverFunded ? (GOAL_AMOUNT / totalAmount) * 100 : 100;
 
   return (
     <>
@@ -191,7 +195,7 @@ export default function Funding() {
 
           <div className="mx-auto max-w-md rounded-xl border border-neutral-800 bg-neutral-900/80 p-5 backdrop-blur-sm">
             <div className="mb-2 flex items-end justify-between">
-              <span className="text-2xl font-bold text-teal-400 sm:text-3xl">
+              <span className={`text-2xl font-bold sm:text-3xl ${isOverFunded ? "animate-lava-text" : "text-teal-400"}`}>
                 {formatCurrency(totalAmount)}
               </span>
               <span className="text-sm text-neutral-500">
@@ -199,14 +203,37 @@ export default function Funding() {
               </span>
             </div>
             <div className="h-3 overflow-hidden rounded-full bg-neutral-800">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 transition-all duration-500"
-                style={{ width: `${progress}%` }}
-              />
+              {isOverFunded ? (
+                <div className="flex h-full w-full">
+                  <div
+                    className="h-full bg-gradient-to-r from-teal-400 to-cyan-400 transition-all duration-500"
+                    style={{ width: `${goalRatio}%` }}
+                  />
+                  <div
+                    className="h-full animate-lava transition-all duration-500 rounded-r-full"
+                    style={{ width: `${100 - goalRatio}%` }}
+                  />
+                </div>
+              ) : (
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 transition-all duration-500"
+                  style={{ width: `${progress}%` }}
+                />
+              )}
             </div>
             <p className="mt-2 text-sm text-neutral-500">
-              {donorCount}명 참여 · {progress.toFixed(0)}% 달성
+              {donorCount}명 참여 · {overallPercent.toFixed(0)}% 달성
             </p>
+            {totalAmount > GOAL_AMOUNT && (
+              <div className="mt-4 rounded-lg border border-red-500/20 bg-red-500/5 p-3">
+                <p className="text-sm font-semibold animate-lava-text">
+                  펀딩 금액 초과 달성!
+                </p>
+                <p className="mt-1 text-xs text-neutral-400">
+                  초과한 금액은 출력용 필라멘트와 프린터 악세사리 등<br />더 나은 프린팅을 위해 사용됩니다.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
