@@ -9,15 +9,15 @@
  *   npx tsx scripts/add-funding.ts <성명> <금액> [입금일시]
  *
  * 예시:
- *   npx tsx scripts/add-funding.ts 홍길동 50000
- *   npx tsx scripts/add-funding.ts 홍길동 50000 "2026-03-09 14:30"
+ *   npx tsx scripts/add-funding.ts 김롱간 50000
+ *   npx tsx scripts/add-funding.ts 김롱간 50000 "2026-03-09 14:30"
  */
 
-import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
+import { applicationDefault, cert, initializeApp } from "firebase-admin/app";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
-import { readFileSync, existsSync } from "fs";
-import { fileURLToPath } from "url";
+import { existsSync, readFileSync } from "fs";
 import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,8 +41,8 @@ async function main() {
 
   if (!name || !amountStr) {
     console.error("사용법: npx tsx scripts/add-funding.ts <성명> <금액> [입금일시]");
-    console.error("예시:   npx tsx scripts/add-funding.ts 홍길동 50000");
-    console.error('        npx tsx scripts/add-funding.ts 홍길동 50000 "2026-03-09 14:30"');
+    console.error("예시:   npx tsx scripts/add-funding.ts 김롱간 50000");
+    console.error('        npx tsx scripts/add-funding.ts 김롱간 50000 "2026-03-09 14:30"');
     process.exit(1);
   }
 

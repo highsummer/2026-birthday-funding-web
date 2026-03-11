@@ -57,4 +57,24 @@ export const api = {
       method: "DELETE",
       body: JSON.stringify({ name }),
     }),
+
+  addFunding: (data: {
+    password: string;
+    name: string;
+    amount: number;
+    depositedAt?: string;
+  }) =>
+    apiFetch<{ id: string; action: string; name: string; amount: number }>(
+      "/api/funding",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      },
+    ),
+
+  deleteFunding: (data: { password: string; name: string }) =>
+    apiFetch<{ deletedCount: number; name: string }>("/api/funding", {
+      method: "DELETE",
+      body: JSON.stringify(data),
+    }),
 };

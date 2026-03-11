@@ -11,8 +11,9 @@ export default $config({
   },
   async run() {
     const firebaseServiceAccount = new sst.Secret("FirebaseServiceAccount");
+    const adminPassword = new sst.Secret("AdminPassword");
 
-    const secrets = [firebaseServiceAccount];
+    const secrets = [firebaseServiceAccount, adminPassword];
 
     const api = new sst.aws.ApiGatewayV2("Api", {
       cors: {
@@ -24,6 +25,14 @@ export default $config({
 
     api.route("GET /api/funding/summary", {
       handler: "packages/functions/src/funding-summary.handler",
+      link: secrets,
+    });
+    api.route("POST /api/funding", {
+      handler: "packages/functions/src/funding-add.handler",
+      link: secrets,
+    });
+    api.route("DELETE /api/funding", {
+      handler: "packages/functions/src/funding-delete.handler",
       link: secrets,
     });
     api.route("GET /api/guestbook", {
