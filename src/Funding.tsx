@@ -450,8 +450,8 @@ export default function Funding() {
                     </div>
                   ) : (
                     <>
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="font-semibold text-neutral-100">
+                      <div className="mb-2 flex items-center justify-between gap-2">
+                        <span className="min-w-0 truncate font-semibold text-neutral-100">
                           {entry.nickname}
                           {entry.showAmount && entry.amount != null && (
                             <span className="ml-2 text-sm font-normal text-teal-500">
@@ -459,7 +459,7 @@ export default function Funding() {
                             </span>
                           )}
                         </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex shrink-0 items-center gap-2">
                           <span className="text-xs text-neutral-500">
                             {formatDate(entry.createdAt)}
                           </span>
