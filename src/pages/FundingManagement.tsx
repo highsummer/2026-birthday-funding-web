@@ -71,6 +71,9 @@ export default function FundingManagement() {
     <div className="min-h-screen bg-neutral-950 text-white p-6">
       <div className="max-w-lg mx-auto space-y-8">
         <h1 className="text-2xl font-bold">펀딩 관리</h1>
+        <p className="text-neutral-500 text-sm">
+          어떻게 오셨어요...? 하지만 여긴 당신을 위한 페이지가 아닙니다.
+        </p>
 
         {/* Password */}
         <div>
