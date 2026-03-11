@@ -530,6 +530,12 @@ export default function Funding() {
           )}
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="border-t border-neutral-800 py-8 text-center text-sm text-neutral-500">
+        <p>© 2026 Yoonha Hwang. All rights reserved.</p>
+        <p className="mt-1">Clicky-clacked into existence by Yoonha</p>
+      </footer>
     </>
   );
 }
