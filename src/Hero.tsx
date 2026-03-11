@@ -82,15 +82,15 @@ export default function Hero() {
           transform: `translateY(${textTranslateY}px)`,
         }}
       >
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-12">
           <img
             src="/assets/hero.png"
             alt="저 곧 생일인데 Bambu Lab A1 Combo 갖고싶습니다"
-            className="max-w-[85%] sm:max-w-xl md:max-w-2xl"
+            className="max-w-[85%] sm:max-w-md md:max-w-lg"
             draggable={false}
           />
           <p className="text-sm tracking-widest text-neutral-400 sm:text-base">
-            3월 25일 생일 기념 크라우드펀딩
+            3월 25일, 황윤하의 생일 기념 크라우드펀딩
           </p>
         </div>
       </div>
@@ -107,7 +107,11 @@ export default function Hero() {
           stroke="currentColor"
           strokeWidth={2}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </div>
 
