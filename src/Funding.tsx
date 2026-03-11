@@ -177,13 +177,13 @@ export default function Funding() {
   return (
     <>
       {/* 펀딩 현황 */}
-      <section className="px-4 pt-16 pb-12 text-center">
+      <section className="px-4 pt-16 pb-12 text-center bg-neutral-950">
         <div className="mx-auto max-w-2xl">
           <p className="mb-1 text-sm font-semibold tracking-widest text-teal-400">
             그래서 부탁드립니다
           </p>
           <h2 className="mb-2 text-3xl font-bold text-white sm:text-4xl">
-            생일 선물형 펀딩
+            생일선물형 펀딩
           </h2>
           <p className="mb-8 text-base text-neutral-400">
             Bambu Lab A1 Combo를 향하여
@@ -212,10 +212,10 @@ export default function Funding() {
       </section>
 
       {/* 펀딩 참여 혜택 */}
-      <section className="px-4 pt-10 pb-2">
+      <section className="px-4 pt-10 pb-2 bg-neutral-950">
         <div className="mx-auto max-w-md rounded-xl border border-teal-400/20 bg-teal-400/5 p-5">
           <p className="mb-1 text-sm font-semibold text-teal-400">
-            펀딩 참여시 특전
+            생일 펀딩 참여 특전
           </p>
           <p
             className="text-base text-neutral-300"
@@ -227,7 +227,7 @@ export default function Funding() {
       </section>
 
       {/* 펀딩 참여 방법 */}
-      <section className="px-4 pt-8 pb-2">
+      <section className="px-4 pt-8 pb-2 bg-neutral-950">
         <div className="mx-auto max-w-md rounded-xl border border-neutral-800 bg-neutral-900/60 p-5">
           <p className="mb-3 text-sm font-semibold text-teal-400">
             펀딩에 참여하는 법
@@ -288,8 +288,8 @@ export default function Funding() {
             <li>
               방명록을 작성하기
               <p className="mt-1 text-sm text-neutral-500">
-                방명록은 펀딩 참여가 확인된 후 보여집니다. 다만 입금 내역을
-                연동할 수 있는 방법이 없어서 제가 수동으로 작업합니다. 깨어있는
+                방명록은 펀딩 참여가 확인된 후 보입니다. 다만 입금 내역을
+                연동할 수 있는 방법이 없어서 제가 수동으로 작업합니다. 깨어 있는
                 동안은 바로바로 하려고 노력하겠지만 조금 걸릴 수도 있어요...
               </p>
             </li>
@@ -306,7 +306,7 @@ export default function Funding() {
           </h2>
           <form
             onSubmit={handleSubmit}
-            className="space-y-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-6"
+            className="space-y-4 rounded-xl border border-neutral-800 bg-neutral-900 p-6"
           >
             <p className="text-sm text-neutral-400">
               펀딩에 참여하신 분만 방명록을 작성할 수 있어요.
@@ -385,7 +385,7 @@ export default function Funding() {
       </section>
 
       {/* 방명록 목록 */}
-      <section className="px-4 pb-16 bg-neutral-950">
+      <section className="px-4 pt-4 pb-16 bg-neutral-950">
         <div className="mx-auto max-w-2xl">
           <h2 className="mb-6 text-2xl font-bold text-neutral-100">
             방명록{" "}
@@ -400,7 +400,7 @@ export default function Funding() {
               {guestbook.map((entry) => (
                 <div
                   key={entry.id}
-                  className="rounded-2xl border border-neutral-800 bg-neutral-900 p-5"
+                  className="rounded-xl border border-neutral-800 bg-neutral-900 p-5"
                 >
                   {editingId === entry.id ? (
                     <div className="space-y-3">

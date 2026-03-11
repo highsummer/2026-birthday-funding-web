@@ -3,6 +3,7 @@ import Excuse from "./Excuse";
 import Funding from "./Funding";
 import Gallery from "./Gallery";
 import Hero from "./Hero";
+import Intro from "./Intro";
 
 export default function App() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -17,6 +18,9 @@ export default function App() {
         ref={heroRef}
         className="relative z-30 bg-gradient-to-b from-black via-neutral-950 to-neutral-950"
       >
+        {/* 생일 펀딩 소개 */}
+        <Intro />
+
         {/* 갤러리 */}
         <Gallery />
 

@@ -23,7 +23,7 @@ export default function Hero() {
   const imgBrightness = 0.5 + imgProgress * 0.5;
 
   return (
-    <div style={{ height: `${vh * 1.5}px` }} className="relative">
+    <div style={{ height: `${vh * 1.2}px` }} className="relative">
       {/* 보케 레이어 - 고정 */}
       <div
         className="pointer-events-none fixed inset-0 z-[18]"
@@ -82,12 +82,17 @@ export default function Hero() {
           transform: `translateY(${textTranslateY}px)`,
         }}
       >
-        <img
-          src="/assets/hero.png"
-          alt="저 곧 생일인데 Bambu Lab A1 Combo 갖고싶습니다"
-          className="max-w-[85%] sm:max-w-xl md:max-w-2xl"
-          draggable={false}
-        />
+        <div className="flex flex-col items-center gap-3">
+          <img
+            src="/assets/hero.png"
+            alt="저 곧 생일인데 Bambu Lab A1 Combo 갖고싶습니다"
+            className="max-w-[85%] sm:max-w-xl md:max-w-2xl"
+            draggable={false}
+          />
+          <p className="text-sm tracking-widest text-neutral-400 sm:text-base">
+            3월 25일 생일 기념 크라우드펀딩
+          </p>
+        </div>
       </div>
 
       {/* 하단 chevron - 스크롤 유도 */}
