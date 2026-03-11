@@ -93,7 +93,7 @@ const CREATIONS: Creation[] = [
   },
 ];
 
-const CARD_WIDTH = 280;
+const CARD_WIDTH = 224;
 const GAP = 16;
 const STEP = CARD_WIDTH + GAP;
 
@@ -118,11 +118,13 @@ export default function Gallery() {
     [shuffled],
   );
 
-  // 초기 스크롤을 중간 세트로
+  // 초기 스크롤을 중간 세트로 (첫 카드가 화면 중앙에 오도록)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollLeft = shuffled.length * STEP;
+    const paddingLeft = 32; // px-8
+    const centerOffset = (el.clientWidth - CARD_WIDTH) / 2 - paddingLeft;
+    el.scrollLeft = shuffled.length * STEP - centerOffset;
   }, [shuffled]);
 
   // 순환 처리: 끝에 도달하면 중간으로 점프
@@ -158,13 +160,13 @@ export default function Gallery() {
   };
 
   return (
-    <section className="relative py-16 bg-neutral-950">
-      <div className="mx-auto max-w-2xl px-4 mb-8">
+    <section className="relative py-16 px-4 bg-neutral-950">
+      <div className="mx-auto max-w-2xl mb-8">
         <p className="mb-1 text-sm font-semibold tracking-widest text-teal-400">
-          원래는 크리메이커 메탈 v1이 있었다
+          선물로 3D 프린터를 달라는 사람은
         </p>
         <h2 className="text-3xl font-bold text-white sm:text-4xl">
-          여태까지 만든 것
+          이런 걸 만들어왔습니다
         </h2>
       </div>
 
