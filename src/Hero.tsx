@@ -90,7 +90,7 @@ export default function Hero() {
             draggable={false}
           />
           <p className="text-sm tracking-widest text-neutral-400 sm:text-base">
-            3월 25일, 황윤하의 생일 기념 크라우드펀딩
+            3월 25일, 황윤하의 생일 기념 자체 크라우드펀딩
           </p>
         </div>
       </div>
