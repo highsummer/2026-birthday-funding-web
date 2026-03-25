@@ -267,18 +267,14 @@ export default function Funding() {
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard.writeText("토스뱅크 ***REDACTED***");
+                  navigator.clipboard.writeText(import.meta.env.VITE_BANK_ACCOUNT);
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
                 }}
                 className="inline-flex items-center gap-1.5 rounded-md bg-neutral-800 px-2 py-0.5 text-left transition-colors hover:bg-neutral-700 active:bg-neutral-600"
               >
-                <span>
-                  토스뱅크{" "}
-                  <span className="font-mono font-semibold text-white">
-                    ***REDACTED***
-                  </span>{" "}
-                  황윤하
+                <span className="font-mono font-semibold text-white">
+                  {import.meta.env.VITE_BANK_ACCOUNT}
                 </span>
                 {copied ? (
                   <svg

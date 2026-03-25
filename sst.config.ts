@@ -60,6 +60,7 @@ export default $config({
       domain: "birthday.yoonha.dev",
       environment: {
         VITE_API_URL: api.url,
+        VITE_BANK_ACCOUNT: process.env.VITE_BANK_ACCOUNT || "",
       },
     });
 
