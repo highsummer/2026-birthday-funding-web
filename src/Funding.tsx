@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { api, type GuestbookEntry } from "./api";
 
 const GOAL_AMOUNT = 599_000;
+const FUNDING_CLOSED = true;
 
 function formatCurrency(amount: number) {
   return amount.toLocaleString("ko-KR") + "원";
@@ -224,7 +225,18 @@ export default function Funding() {
             <p className="mt-2 text-sm text-neutral-500">
               {donorCount}명 참여 · {overallPercent.toFixed(0)}% 달성
             </p>
-            {totalAmount > GOAL_AMOUNT && (
+            {FUNDING_CLOSED ? (
+              <div className="mt-4 rounded-lg border border-teal-400/20 bg-teal-400/5 p-3">
+                <p className="text-sm font-semibold text-teal-400">
+                  펀딩이 마감되었습니다. 감사합니다!
+                </p>
+                {totalAmount > GOAL_AMOUNT && (
+                  <p className="mt-1 text-xs text-neutral-400">
+                    초과한 금액은 출력용 필라멘트와 프린터 악세사리 등<br />더 나은 프린팅을 위해 사용됩니다.
+                  </p>
+                )}
+              </div>
+            ) : totalAmount > GOAL_AMOUNT ? (
               <div className="mt-4 rounded-lg border border-red-500/20 bg-red-500/5 p-3">
                 <p className="text-sm font-semibold animate-lava-text">
                   펀딩 금액 초과 달성!
@@ -233,7 +245,7 @@ export default function Funding() {
                   초과한 금액은 출력용 필라멘트와 프린터 악세사리 등<br />더 나은 프린팅을 위해 사용됩니다.
                 </p>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
@@ -254,6 +266,7 @@ export default function Funding() {
       </section>
 
       {/* 펀딩 참여 방법 */}
+      {!FUNDING_CLOSED && (
       <section className="px-4 pt-8 pb-2 bg-neutral-950">
         <div className="mx-auto max-w-md rounded-xl border border-neutral-800 bg-neutral-900/60 p-5">
           <p className="mb-3 text-sm font-semibold text-teal-400">
@@ -320,90 +333,101 @@ export default function Funding() {
           </ol>
         </div>
       </section>
+      )}
 
       {/* 방명록 작성 폼 */}
       <section className="px-4 pt-12 pb-12 bg-neutral-950">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-6 text-2xl font-bold text-neutral-100">
-            방명록 작성
-          </h2>
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-4 rounded-xl border border-neutral-800 bg-neutral-900 p-6"
-          >
-            <p className="text-sm text-neutral-400">
-              펀딩에 참여하신 분만 방명록을 작성할 수 있어요.
-            </p>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <label className="mb-1 block text-sm font-medium text-neutral-300">
-                  성명 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="입금자명과 동일하게"
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-medium text-neutral-300">
-                  닉네임 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
-                  placeholder="방명록에 표시할 이름"
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-neutral-300">
-                메시지 <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="축하 메시지를 남겨주세요!"
-                rows={3}
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
-              />
-            </div>
-
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={showAmount}
-                onChange={(e) => setShowAmount(e.target.checked)}
-                className="h-4 w-4 rounded border-neutral-600 bg-neutral-800 text-teal-400 focus:ring-teal-500/30"
-              />
-              <span className="text-sm text-neutral-400">
-                방명록에 펀딩 금액 공개하기
-              </span>
-            </label>
-
-            {error && (
-              <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400">
-                {error}
+          {FUNDING_CLOSED ? (
+            <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-5 text-center">
+              <p className="text-sm text-neutral-400">
+                펀딩이 마감되어 방명록 등록이 종료되었습니다.
               </p>
-            )}
-            {success && (
-              <p className="rounded-lg bg-teal-500/10 px-4 py-2 text-sm text-teal-400">
-                {success}
-              </p>
-            )}
+            </div>
+          ) : (
+            <>
+              <h2 className="mb-6 text-2xl font-bold text-neutral-100">
+                방명록 작성
+              </h2>
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4 rounded-xl border border-neutral-800 bg-neutral-900 p-6"
+              >
+                <p className="text-sm text-neutral-400">
+                  펀딩에 참여하신 분만 방명록을 작성할 수 있어요.
+                </p>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-neutral-300">
+                      성명 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="입금자명과 동일하게"
+                      className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-neutral-300">
+                      닉네임 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={nickname}
+                      onChange={(e) => setNickname(e.target.value)}
+                      placeholder="방명록에 표시할 이름"
+                      className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-neutral-300">
+                    메시지 <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="축하 메시지를 남겨주세요!"
+                    rows={3}
+                    className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
+                  />
+                </div>
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full rounded-lg bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-3 font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
-            >
-              {submitting ? "등록 중..." : "방명록 남기기"}
-            </button>
-          </form>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showAmount}
+                    onChange={(e) => setShowAmount(e.target.checked)}
+                    className="h-4 w-4 rounded border-neutral-600 bg-neutral-800 text-teal-400 focus:ring-teal-500/30"
+                  />
+                  <span className="text-sm text-neutral-400">
+                    방명록에 펀딩 금액 공개하기
+                  </span>
+                </label>
+
+                {error && (
+                  <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400">
+                    {error}
+                  </p>
+                )}
+                {success && (
+                  <p className="rounded-lg bg-teal-500/10 px-4 py-2 text-sm text-teal-400">
+                    {success}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full rounded-lg bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-3 font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                >
+                  {submitting ? "등록 중..." : "방명록 남기기"}
+                </button>
+              </form>
+            </>
+          )}
         </div>
       </section>
 
@@ -416,7 +440,9 @@ export default function Funding() {
           </h2>
           {guestbook.length === 0 ? (
             <p className="text-center text-neutral-500">
-              아직 방명록이 없습니다. 첫 번째로 남겨보세요!
+              {FUNDING_CLOSED
+                ? "아직 방명록이 없습니다."
+                : "아직 방명록이 없습니다. 첫 번째로 남겨보세요!"}
             </p>
           ) : (
             <div className="space-y-4">
@@ -486,18 +512,22 @@ export default function Funding() {
                           <span className="text-xs text-neutral-500">
                             {formatDate(entry.createdAt)}
                           </span>
-                          <button
-                            onClick={() => startVerify(entry, "edit")}
-                            className="text-xs text-neutral-500 hover:text-teal-600"
-                          >
-                            수정
-                          </button>
-                          <button
-                            onClick={() => startVerify(entry, "delete")}
-                            className="text-xs text-neutral-500 hover:text-red-500"
-                          >
-                            삭제
-                          </button>
+                          {!FUNDING_CLOSED && (
+                            <>
+                              <button
+                                onClick={() => startVerify(entry, "edit")}
+                                className="text-xs text-neutral-500 hover:text-teal-600"
+                              >
+                                수정
+                              </button>
+                              <button
+                                onClick={() => startVerify(entry, "delete")}
+                                className="text-xs text-neutral-500 hover:text-red-500"
+                              >
+                                삭제
+                              </button>
+                            </>
+                          )}
                         </div>
                       </div>
                       <p className="whitespace-pre-wrap text-neutral-300">
